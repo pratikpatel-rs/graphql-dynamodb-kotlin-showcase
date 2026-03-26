@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: graphQLDemo
+  graphql:
+    graphiql:
+      enabled: true
+      path: /graphiql
+  kafka:
+    consumer:
+      group-id: person-service-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "org.example.graphqldemo.*"
+
+logging:
+  level:
+    org:
+      springframework:
+        graphql: DEBUG
+    software:
+      amazon:
+        awssdk: DEBUG
+
+aws:
+  dynamodb:
+    region: us-east-2
+    accessKey: YOUR_ACCESS_KEY
+    secretKey: YOUR_SECRET_KEY

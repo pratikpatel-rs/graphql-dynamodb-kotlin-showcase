@@ -1,0 +1,61 @@
+type Query {
+    getPerson(id: ID!): PersonResponse
+    getAllPersons(limit: Int, lastKey: String): PaginatedPersonResponse
+    getCourse(id: ID!): CourseResponse
+}
+
+type Mutation {
+    createPerson(request: PersonInput!): PersonResponse
+    updatePerson(id: ID!, request: PersonInput!): PersonResponse
+    deletePerson(id: ID!): Boolean
+    enrollInCourse(personId: ID!, courseId: ID!): PersonResponse
+
+    createCourse(request: CourseInput!): CourseResponse
+    deleteCourse(id: ID!): Boolean
+}
+
+type PersonResponse {
+    personId: ID!
+    name: String!
+    age: Int
+    email: String!
+    address: Address
+    enrolledCourses: [CourseResponse!]!
+}
+
+type CourseResponse {
+    courseId: ID!
+    title: String!
+    description: String!
+    price: Float!
+}
+
+type Address {
+    city: String
+    state: String
+    pinCode: Int
+}
+
+type PaginatedPersonResponse {
+    items: [PersonResponse!]!
+    lastEvaluatedKey: String
+}
+
+input PersonInput {
+    name: String!
+    age: Int
+    email: String!
+    address: AddressInput
+}
+
+input AddressInput {
+    city: String
+    state: String
+    pinCode: Int
+}
+
+input CourseInput {
+    title: String!
+    description: String!
+    price: Float!
+}
